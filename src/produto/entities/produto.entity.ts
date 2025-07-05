@@ -5,7 +5,8 @@ import {
   MaxLength,
   Min,
 } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Categoria } from '../../categoria/entities/categoria.entity';
 
 @Entity({ name: 'tb_produtos' })
 export class Produto {
@@ -35,4 +36,7 @@ export class Produto {
   })
   @Column({ length: 255, nullable: true })
   imagem?: string;
+
+  @ManyToOne(() => Categoria, (categoria) => categoria.produtos, { eager: true })
+  categoria: Categoria;
 }
